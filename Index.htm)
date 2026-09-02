@@ -1,197 +1,178 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GananciaPY3</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GananciaPY</title>
 
-<style>
-body{
-  font-family:Arial,sans-serif;
-  margin:0;
-  background:#f4f5f7;
-  color:#111;
-}
-.contenedor{
-  max-width:520px;
-  margin:auto;
-  padding:25px 18px;
-}
-h1{
-  text-align:center;
-  margin-bottom:5px;
-}
-.subtitulo{
-  text-align:center;
-  color:#666;
-  margin-bottom:25px;
-}
-.card{
-  background:white;
-  padding:20px;
-  border-radius:16px;
-  margin-bottom:18px;
-  box-shadow:0 3px 15px rgba(0,0,0,.08);
-}
-h2{
-  margin-top:0;
-}
-label{
-  display:block;
-  font-weight:bold;
-  margin-top:14px;
-}
-input{
-  width:100%;
-  padding:13px;
-  margin-top:6px;
-  border:1px solid #ccc;
-  border-radius:9px;
-  font-size:16px;
-  box-sizing:border-box;
-}
-button{
-  width:100%;
-  padding:14px;
-  margin-top:18px;
-  border:0;
-  border-radius:9px;
-  background:#111;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-}
-.resultado{
-  margin-top:18px;
-  padding:15px;
-  background:#f0f1f3;
-  border-radius:10px;
-}
-.numero{
-  font-size:24px;
-  font-weight:bold;
-}
-hr{
-  border:0;
-  border-top:1px solid #ddd;
-  margin:25px 0;
-}
-</style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .contenedor {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .subtitulo {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .tarjeta {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #222;
+      color: white;
+    }
+
+    .resultado {
+      margin-top: 18px;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      line-height: 1.7;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="contenedor">
+  <div class="contenedor">
 
-<h1>GananciaPY</h1>
+    <h1>GananciaPY</h1>
+    <p class="subtitulo">Herramientas simples para calcular tu dinero y tu negocio.</p>
 
-<p class="subtitulo">
-Herramientas simples para calcular tu dinero y tu negocio.
-</p>
+    <!-- CALCULADORA DE GANANCIA -->
+    <div class="tarjeta">
+      <h2>🧮 Calcular ganancia</h2>
 
-<div class="card">
+      <label>Precio de compra</label>
+      <input type="number" id="compra" placeholder="Ej: 50000">
 
-<h2>🧮 Calcular ganancia</h2>
+      <label>Precio de venta</label>
+      <input type="number" id="venta" placeholder="Ej: 70000">
 
-<label>Precio de compra (G.)</label>
-<input id="compra" type="number" placeholder="Ej: 50000">
+      <label>Cantidad vendida</label>
+      <input type="number" id="cantidad" placeholder="Ej: 10">
 
-<label>Precio de venta (G.)</label>
-<input id="venta" type="number" placeholder="Ej: 80000">
+      <button onclick="calcularGanancia()">Calcular</button>
 
-<label>Cantidad vendida</label>
-<input id="cantidad" type="number" value="1">
-
-<button onclick="calcularGanancia()">CALCULAR</button>
-
-<div class="resultado">
-<p>Ganancia por unidad:</p>
-<div class="numero" id="unidad">G. 0</div>
-
-<p>Ganancia total:</p>
-<div class="numero" id="total">G. 0</div>
-
-<p>Margen:</p>
-<div class="numero" id="margen">0%</div>
-</div>
-
-</div>
+      <div class="resultado" id="resultadoGanancia">
+        Aquí aparecerá tu resultado.
+      </div>
+    </div>
 
 
-<div class="card">
+    <!-- CALCULADORA DE PRECIO -->
+    <div class="tarjeta">
+      <h2>💰 ¿A cuánto vender?</h2>
 
-<h2>💰 ¿A cuánto vender?</h2>
+      <label>Costo del producto</label>
+      <input type="number" id="costo" placeholder="Ej: 50000">
 
-<label>Precio que te costó (G.)</label>
-<input id="costoVenta" type="number" placeholder="Ej: 50000">
+      <label>Ganancia deseada (%)</label>
+      <input type="number" id="porcentaje" placeholder="Ej: 30">
 
-<label>Ganancia que quieres (%)</label>
-<input id="porcentaje" type="number" placeholder="Ej: 30">
+      <button onclick="calcularPrecio()">Calcular precio</button>
 
-<button onclick="calcularPrecio()">CALCULAR PRECIO</button>
+      <div class="resultado" id="resultadoPrecio">
+        Aquí aparecerá el precio recomendado.
+      </div>
+    </div>
 
-<div class="resultado">
-<p>Debes vender aproximadamente a:</p>
-<div class="numero" id="precioRecomendado">G. 0</div>
-</div>
-
-</div>
-
-</div>
+  </div>
 
 
-<script>
+  <script>
 
-function formato(numero){
-return numero.toLocaleString("es-PY");
-}
+    function calcularGanancia() {
 
-function calcularGanancia(){
+      const compra = Number(document.getElementById("compra").value);
+      const venta = Number(document.getElementById("venta").value);
+      const cantidad = Number(document.getElementById("cantidad").value);
 
-let compra =
-Number(document.getElementById("compra").value) || 0;
+      if (compra <= 0 || venta <= 0 || cantidad <= 0) {
+        document.getElementById("resultadoGanancia").innerHTML =
+          "⚠️ Completa todos los campos correctamente.";
+        return;
+      }
 
-let venta =
-Number(document.getElementById("venta").value) || 0;
+      const gananciaUnidad = venta - compra;
+      const gananciaTotal = gananciaUnidad * cantidad;
+      const margen = (gananciaUnidad / venta) * 100;
 
-let cantidad =
-Number(document.getElementById("cantidad").value) || 0;
-
-let ganancia = venta - compra;
-
-let total = ganancia * cantidad;
-
-let margen = venta > 0
-? (ganancia / venta) * 100
-: 0;
-
-document.getElementById("unidad").innerText =
-"G. " + formato(ganancia);
-
-document.getElementById("total").innerText =
-"G. " + formato(total);
-
-document.getElementById("margen").innerText =
-margen.toFixed(1) + "%";
-}
+      document.getElementById("resultadoGanancia").innerHTML = `
+        💵 Ganancia por unidad: G. ${gananciaUnidad.toLocaleString("es-PY")}<br>
+        💰 Ganancia total: G. ${gananciaTotal.toLocaleString("es-PY")}<br>
+        📊 Margen de ganancia: ${margen.toFixed(2)}%
+      `;
+    }
 
 
-function calcularPrecio(){
+    function calcularPrecio() {
 
-let costo =
-Number(document.getElementById("costoVenta").value) || 0;
+      const costo = Number(document.getElementById("costo").value);
+      const porcentaje = Number(document.getElementById("porcentaje").value);
 
-let porcentaje =
-Number(document.getElementById("porcentaje").value) || 0;
+      if (costo <= 0 || porcentaje < 0) {
+        document.getElementById("resultadoPrecio").innerHTML =
+          "⚠️ Completa los campos correctamente.";
+        return;
+      }
 
-let precio =
-costo * (1 + porcentaje / 100);
+      const precio = costo * (1 + porcentaje / 100);
 
-document.getElementById("precioRecomendado").innerText =
-"G. " + formato(Math.round(precio));
-}
+      document.getElementById("resultadoPrecio").innerHTML = `
+        💰 Precio recomendado: <strong>G. ${precio.toLocaleString("es-PY")}</strong>
+      `;
+    }
 
-</script>
+  </script>
 
 </body>
 </html>
