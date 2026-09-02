@@ -1,37 +1,82 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>GananciaPY</title>
 
 <style>
-
-body{font-family:Arial;margin:0;background:#f5f5f5;color:#111}
-
-.contenedor{max-width:500px;margin:auto;padding:25px}
-
-h1{text-align:center}
-
-.card{background:white;padding:20px;border-radius:15px;box-shadow:0 3px 12px #ccc}
-
-label{display:block;font-weight:bold;margin-top:15px}
-
-input{width:100%;padding:13px;margin-top:6px;border:1px solid #ccc;border-radius:8px;font-size:16px;box-sizing:border-box}
-
-button{width:100%;padding:14px;margin-top:20px;border:0;border-radius:8px;background:#111;color:white;font-size:17px;font-weight:bold}
-
-.resultado{margin-top:20px;background:#eee;padding:15px;border-radius:10px}
-
-.numero{font-size:24px;font-weight:bold}
-
+body{
+  font-family:Arial,sans-serif;
+  margin:0;
+  background:#f4f5f7;
+  color:#111;
+}
+.contenedor{
+  max-width:520px;
+  margin:auto;
+  padding:25px 18px;
+}
+h1{
+  text-align:center;
+  margin-bottom:5px;
+}
+.subtitulo{
+  text-align:center;
+  color:#666;
+  margin-bottom:25px;
+}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  margin-bottom:18px;
+  box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+h2{
+  margin-top:0;
+}
+label{
+  display:block;
+  font-weight:bold;
+  margin-top:14px;
+}
+input{
+  width:100%;
+  padding:13px;
+  margin-top:6px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:16px;
+  box-sizing:border-box;
+}
+button{
+  width:100%;
+  padding:14px;
+  margin-top:18px;
+  border:0;
+  border-radius:9px;
+  background:#111;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+}
+.resultado{
+  margin-top:18px;
+  padding:15px;
+  background:#f0f1f3;
+  border-radius:10px;
+}
+.numero{
+  font-size:24px;
+  font-weight:bold;
+}
+hr{
+  border:0;
+  border-top:1px solid #ddd;
+  margin:25px 0;
+}
 </style>
-
 </head>
 
 <body>
@@ -40,10 +85,115 @@ button{width:100%;padding:14px;margin-top:20px;border:0;border-radius:8px;backgr
 
 <h1>GananciaPY</h1>
 
-<p style="text-align:center">Calcula cuánto ganas con tus productos.</p>
+<p class="subtitulo">
+Herramientas simples para calcular tu dinero y tu negocio.
+</p>
 
 <div class="card">
 
-<label>Precio de compra (G.)</label>
+<h2>🧮 Calcular ganancia</h2>
 
-<input id="compra" type="number" placeh
+<label>Precio de compra (G.)</label>
+<input id="compra" type="number" placeholder="Ej: 50000">
+
+<label>Precio de venta (G.)</label>
+<input id="venta" type="number" placeholder="Ej: 80000">
+
+<label>Cantidad vendida</label>
+<input id="cantidad" type="number" value="1">
+
+<button onclick="calcularGanancia()">CALCULAR</button>
+
+<div class="resultado">
+<p>Ganancia por unidad:</p>
+<div class="numero" id="unidad">G. 0</div>
+
+<p>Ganancia total:</p>
+<div class="numero" id="total">G. 0</div>
+
+<p>Margen:</p>
+<div class="numero" id="margen">0%</div>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>💰 ¿A cuánto vender?</h2>
+
+<label>Precio que te costó (G.)</label>
+<input id="costoVenta" type="number" placeholder="Ej: 50000">
+
+<label>Ganancia que quieres (%)</label>
+<input id="porcentaje" type="number" placeholder="Ej: 30">
+
+<button onclick="calcularPrecio()">CALCULAR PRECIO</button>
+
+<div class="resultado">
+<p>Debes vender aproximadamente a:</p>
+<div class="numero" id="precioRecomendado">G. 0</div>
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function formato(numero){
+return numero.toLocaleString("es-PY");
+}
+
+function calcularGanancia(){
+
+let compra =
+Number(document.getElementById("compra").value) || 0;
+
+let venta =
+Number(document.getElementById("venta").value) || 0;
+
+let cantidad =
+Number(document.getElementById("cantidad").value) || 0;
+
+let ganancia = venta - compra;
+
+let total = ganancia * cantidad;
+
+let margen = venta > 0
+? (ganancia / venta) * 100
+: 0;
+
+document.getElementById("unidad").innerText =
+"G. " + formato(ganancia);
+
+document.getElementById("total").innerText =
+"G. " + formato(total);
+
+document.getElementById("margen").innerText =
+margen.toFixed(1) + "%";
+}
+
+
+function calcularPrecio(){
+
+let costo =
+Number(document.getElementById("costoVenta").value) || 0;
+
+let porcentaje =
+Number(document.getElementById("porcentaje").value) || 0;
+
+let precio =
+costo * (1 + porcentaje / 100);
+
+document.getElementById("precioRecomendado").innerText =
+"G. " + formato(Math.round(precio));
+}
+
+</script>
+
+</body>
+</html>
+
+
